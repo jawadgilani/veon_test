@@ -6,7 +6,7 @@ public class BusinessMain {
 		// TODO Auto-generated method stub
 		System.out.println("Hi I am A Business Mondule");
 		
-		System.out.println("Now Checking Branch Concepts");
+		System.out.println("Now Checking Branch Concept");
 
 	}
 
