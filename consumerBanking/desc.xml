@@ -14,6 +14,7 @@
 		<dependencySet>
 			<outputDirectory>/</outputDirectory>
 			<includes>
+			    <include>com.companyname.project-group:commons</include>
 				<include>com.companyname.project-group:Business</include>
 				<include>com.companyname.project-group:corporate</include>
 			</includes>
