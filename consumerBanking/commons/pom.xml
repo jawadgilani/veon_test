@@ -7,23 +7,43 @@
   </parent>
   <artifactId>commons</artifactId>
   
-      <build>
+  <name>commons</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-core_2.11</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-hive_2.11</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+	</dependencies>
+  
+  
+  
+    	<build>
 		<plugins>
 			<!-- Maven Assembly Plugin -->
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
 					<appendAssemblyId>false</appendAssemblyId>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<mainClass>com.silkbank.consumersBanking.commons.AppLogger</mainClass>
-						</manifest>
-					</archive>
+					<descriptors>
+						<descriptor>desc-com.xml</descriptor>
+					</descriptors>
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>  
+	</build>
   
   
 </project>
