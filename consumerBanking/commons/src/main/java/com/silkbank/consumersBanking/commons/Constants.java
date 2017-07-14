@@ -57,6 +57,7 @@ public class Constants {
         public static final String BALANCE_AFTER			= "balance_after";
         public static final String JSON_EXTRA_DATA			= "json_extra_data";
         public static final String PROCESSING_DTTM			= "processing_dttm";
+        public static final String NAME_CODE   =  "name_code";
 
 		/*
 		 * Usage Example ...

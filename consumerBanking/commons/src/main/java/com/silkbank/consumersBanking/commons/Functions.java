@@ -4,16 +4,15 @@ package com.silkbank.consumersBanking.commons;
 import org.apache.spark.sql.api.java.UDF3;
 
 /**
- * Created by ll186048 on 28/06/2017.
  * <p>
  * Collection of utility UDFs
  */
 public class Functions {
 
     /**
-     * Derive location from DPI table data
+     * Derive NAME for Destination table
      */
-    public static UDF3<String, String, String, String> location = new UDF3<String, String, String, String>() {
+    public static UDF3<String, String, String, String> name_code = new UDF3<String, String, String, String>() {
 
         /**
 		 * 
@@ -23,33 +22,23 @@ public class Functions {
 		/**
          * Derive location from DPI table data
          *
-         * @param cgi
-         * @param sai
-         * @param ecgi
+         * @param FNAME
+         * @param MNAME
+         * @param LNAME
          * @return
          * @throws Exception
          */
-        public String call(String cgi, String sai, String ecgi) throws Exception {
-            if (cgi != null && cgi.length() >= 14) {
-
-                String lacid = Integer.valueOf(cgi.substring(6, 10), 16).toString();
-                String cellid = String.format("%05d", Integer.valueOf(cgi.substring(10, 14), 16));
-
-                return lacid + cellid.substring(1, 5);
-
-            } else if (sai != null && sai.length() >= 14) {
-
-                String lacid = Integer.valueOf(sai.substring(6, 10), 16).toString();
-                String cellid = String.format("%04d", Integer.valueOf(sai.substring(10, 14), 16));
-
-                return lacid + cellid.substring(0, 4);
-
-            } else if (ecgi != null && ecgi.length() >= 11) {
-
-                String cellid = Integer.valueOf(ecgi.substring(6, 11), 16).toString();
-
+        public String call(String FNAME, String MNAME, String LNAME) throws Exception {
+       	
+        	FNAME = FNAME.substring(0, 1)  ;
+        	MNAME = MNAME.substring(0, 1)  ;
+        	LNAME = LNAME.substring(0, 1)  ;
+        	
+        	
+        	String cellid = FNAME + "" + MNAME + "" + LNAME ;
+     
                 return cellid;
-            } else return null;
+          
         }
     };
 }

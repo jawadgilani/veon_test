@@ -10,10 +10,11 @@ import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.types.DataTypes;
 
 import static com.silkbank.consumersBanking.commons.Constants.EVENT_STORE.*;
+
 import static org.apache.spark.sql.functions.*;
 
 /**
- * Created by ll186048 on 28/06/2017.
+
  * <p>
  * DPI_UDN to Event_Store transformation
  */
@@ -55,7 +56,7 @@ public class BusinessMain {
                 .enableHiveSupport()
                 .getOrCreate();
 
-        spark.udf().register(LOCATION, Functions.location, DataTypes.StringType);
+        spark.udf().register(NAME_CODE, Functions.name_code, DataTypes.StringType);
 
         Dataset<Row> sourceDf = spark.sql(String.format("select * from %s %s", source, where));
 
@@ -63,18 +64,20 @@ public class BusinessMain {
         transformedDf = sourceDf.select(
         		substring(from_unixtime(col("starttimesecond")), 0, 10).as(EVENT_DATE),
                 lit("DPI").as(STREAM_TYPE),
-                from_unixtime(col("starttimesecond")).as(EVENT_TIMESTAMP)
+                from_unixtime(col("starttimesecond")).as(EVENT_TIMESTAMP),
+                callUDF(NAME_CODE , col("FNAME"), col("MNAME"), col("LNAME"))
+                
                   //processing_dttm is always added in the feed initialization
         );
 
         transformedDf.show();
 
-        transformedDf.createOrReplaceTempView("DpiUdnToEventStore");
+        transformedDf.createOrReplaceTempView("TestView");
         
         if (incremental) {
-            spark.sql(String.format("insert into table %s select * from DpiUdnToEventStore", target));
+            spark.sql(String.format("insert into table %s select * from TestView", target));
         } else {
-            spark.sql(String.format("insert overwrite table %s select * from DpiUdnToEventStore", target));
+            spark.sql(String.format("insert overwrite table %s select * from TestView", target));
         }
         
         //Very Important; Close Spark Resources ...
