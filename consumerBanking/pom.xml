@@ -11,10 +11,21 @@
   
   <!-- Adding SCM Plugin -->
   <scm>
-    <connection>scm:svn:http://somerepository.com/svn_repo/trunk</connection>
-    <developerConnection>scm:svn:https://somerepository.com/svn_repo/trunk</developerConnection>
-    <url>http://somerepository.com/view.cvs</url>
+    <connection>scm:git:git@github.com:jawadgilani/veon_test.git</connection>
+    <developerConnection>scm:git:git@github.com:jawadgilani/veon_test.git</developerConnection>
+    <url>http://github.com/jawadgilani/veon_test</url>
+    
   </scm>
+  
+  <developers>
+		<developer>
+			<email>syedjawad.gilani@thinkbiganalytics.com</email>
+			<name>Syed Jawad Gilani</name>
+			<url>https://github.com/jawadgilani</url>
+			<id>jawadgilani</id>
+		</developer>
+	</developers>
+  
   
      <properties>  <!-- NOTE: Accessible later in POM File -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -101,36 +112,25 @@
 				<!--  Added SCM      -->
 				
 				
-			<plugin> 
-             <groupId>org.apache.maven.plugins</groupId> 
-             <artifactId>maven-scm-plugin</artifactId> 
-             <version>1.5</version> 
-             <configuration> 
-               <password>wangxuhui</password> 
-               <username>xuhuiw</username> 
-               <basedir>./</basedir> 
-               <exportDirectory>target</exportDirectory> 
-               <includes>src/*,pom.xml</includes> 
-               <workingDirectory>./</workingDirectory> 
-             </configuration> 
-             <executions> 
-               <execution> 
-                 <id>pref-scm</id> 
-                 <configuration> 
-                    <includes>src/*,pom.xml</includes>
-                    <checkoutDirectory>./</checkoutDirectory> 
-                 </configuration> 
-                 <goals> 
-                   <goal>checkin</goal> 
-                   <goal>checkout</goal> 
-                   <goal>update</goal> 
-                   <goal>add</goal> 
-                   <goal>validate</goal> 
-                 </goals> 
-               </execution>
-             </executions> 
-           </plugin> 
-				
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>downloads-maven-plugin</artifactId>
+				<version>0.6</version>
+				<configuration>
+					<description>Official Consumer Project build of the 1.0.0 release</description>
+					<override>true</override>
+					<includeAttached>true</includeAttached>
+					<server>github</server>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>upload</goal>
+						</goals>
+						<phase>install</phase>
+					</execution>
+				</executions>
+			</plugin>
 				
 				
 			</plugins>
