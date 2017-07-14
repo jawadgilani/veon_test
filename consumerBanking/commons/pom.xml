@@ -29,8 +29,7 @@
 	</dependencies>
   
   
-  
-    	<build>
+    <build>
 		<plugins>
 			<!-- Maven Assembly Plugin -->
 			<plugin>

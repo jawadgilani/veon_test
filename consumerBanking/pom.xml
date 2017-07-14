@@ -9,6 +9,13 @@
   
   <url>http://maven.apache.org</url>
   
+  
+  <scm>
+    <connection>scm:svn:http://somerepository.com/svn_repo/trunk</connection>
+    <developerConnection>scm:svn:https://somerepository.com/svn_repo/trunk</developerConnection>
+    <url>http://somerepository.com/view.cvs</url>
+  </scm>
+  
      <properties>  <!-- NOTE: Accessible later in POM File -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -20,7 +27,7 @@
   <dependencies>
  <dependency>
 				<groupId>com.companyname.project-group</groupId>
-				<artifactId>consumerBanking_commons</artifactId>
+				<artifactId>commons</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
@@ -52,9 +59,6 @@
   
   </dependencies>
    </dependencyManagement> 
-   
-   
-   
   
   <modules>
     <module>commons</module> 
@@ -93,6 +97,42 @@
 						</execution>
 					</executions>
 				</plugin>
+				
+				<!--  Added SCM      -->
+				
+				
+			<plugin> 
+             <groupId>org.apache.maven.plugins</groupId> 
+             <artifactId>maven-scm-plugin</artifactId> 
+             <version>1.5</version> 
+             <configuration> 
+               <password>wangxuhui</password> 
+               <username>xuhuiw</username> 
+               <basedir>./</basedir> 
+               <exportDirectory>target</exportDirectory> 
+               <includes>src/*,pom.xml</includes> 
+               <workingDirectory>./</workingDirectory> 
+             </configuration> 
+             <executions> 
+               <execution> 
+                 <id>pref-scm</id> 
+                 <configuration> 
+                    <includes>src/*,pom.xml</includes>
+                    <checkoutDirectory>./</checkoutDirectory> 
+                 </configuration> 
+                 <goals> 
+                   <goal>checkin</goal> 
+                   <goal>checkout</goal> 
+                   <goal>update</goal> 
+                   <goal>add</goal> 
+                   <goal>validate</goal> 
+                 </goals> 
+               </execution>
+             </executions> 
+           </plugin> 
+				
+				
+				
 			</plugins>
 		</pluginManagement>
 	</build>
